@@ -1,9 +1,9 @@
-public class SinglyLibrary{
+public class DoublyLibrary{
 
-   SinglyNode head, tail;
+   DoublyNode head, tail;
    int size = 0;
    
-   public SinglyLibrary(){
+   public DoublyLibrary(){
       this.head = null;
       this.tail = null;   
    }
@@ -11,28 +11,27 @@ public class SinglyLibrary{
    public boolean isEmpty(){
       if(head == null){
          return true;
-      }
-      else{
+      }else{
          return false;
       }
    }
    
-   public void addBook(int BookID, String Title, String Author){
-      SinglyNode newNode = new SinglyNode(BookID, Title, Author);
+   public void borrowBook(SinglyNode singlyNode){
+      DoublyNode newNode = new DoublyNode(null, singlyNode.BookID, singlyNode.Title, singlyNode.Author, head);
       if(isEmpty()){
          head = tail = newNode;
-      }
-      else{
+      }else{
          newNode.next = head;
-         head = newNode;
+         head.prev = newNode;
+         head = newNode;   
       }
-      System.out.println("Book Successfully Added!");
+      System.out.println("Book Successfully Borrowed!");
       size++;
    }
    
    public void removeBook(String searchedTitle){
       if(isEmpty()){
-         System.out.println("Library is Empty!");
+         System.out.println("No Borrowed Books!");
          return;
       }
       if(head.Title.equalsIgnoreCase(searchedTitle)){
@@ -43,7 +42,8 @@ public class SinglyLibrary{
          size--;
          return;
       }
-      SinglyNode current = head;
+      
+      DoublyNode current = head;
       while(current.next != null){
          if(current.next.Title.equalsIgnoreCase(searchedTitle)){
             if(current.next == tail){
@@ -56,15 +56,15 @@ public class SinglyLibrary{
          current = current.next;
       }
       System.out.println("Book not Found!");
-   }
+   } 
    
-   public SinglyNode searchBook(String searchedTitle, int option){
+   public DoublyNode searchBook(String searchedTitle, int option){
       if(isEmpty()){
-         System.out.println("Library is Empty!");
+         System.out.println("No Borrowed Books!");
          return null;
       }
       else{
-         SinglyNode current = head;
+         DoublyNode current = head;
          while(current != null){
             if(option == 2 && searchedTitle.equalsIgnoreCase(current.Title)){
                return current;
@@ -77,22 +77,21 @@ public class SinglyLibrary{
                System.out.println("Book Author: " + current.Author);
                return null;
             }
-            current = current.next;
-         }
-         System.out.println("Book Title Not Found or Available!");
-         return null;
+               current = current.next;
+            }
+            System.out.println("Book Title Not Found or Available!");
+            return null;
       }
    }
    
-   public void displayBooks(){
+   public void displayBorrowedBook(){
       if(isEmpty()){
-         System.out.println("Library is Empty!");
-         return;
+         System.out.println("No Borrowed Books!");
       }else{
-         SinglyNode current = head;
+         DoublyNode current = head;
          int num = 1;
          while(current != null){
-            System.out.println("--------- Book " + num + " -----------");
+            System.out.println("--------- Borrowed Book " + num + " -----------");
             System.out.println("Book ID: " + current.BookID);
             System.out.println("Book Title: " + current.Title);
             System.out.println("Book Author: " + current.Author);
@@ -101,4 +100,5 @@ public class SinglyLibrary{
          }
       }
    }
+   
 }
