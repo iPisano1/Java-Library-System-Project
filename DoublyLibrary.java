@@ -1,5 +1,5 @@
 public class DoublyLibrary{
-
+   
    DoublyNode head, tail;
    int size = 0;
    
@@ -30,13 +30,9 @@ public class DoublyLibrary{
    }
    
    public void removeBook(String searchedTitle){
-      if(isEmpty()){
-         System.out.println("No Borrowed Books!");
-         return;
-      }
       if(head.Title.equalsIgnoreCase(searchedTitle)){
          head = head.next;
-         if(head == tail){
+         if(head == null){
             tail = null;
          }
          size--;
@@ -87,14 +83,15 @@ public class DoublyLibrary{
    public void displayBorrowedBook(){
       if(isEmpty()){
          System.out.println("No Borrowed Books!");
+         return;
       }else{
          DoublyNode current = head;
          int num = 1;
          while(current != null){
-            System.out.println("--------- Borrowed Book " + num + " -----------");
-            System.out.println("Book ID: " + current.BookID);
-            System.out.println("Book Title: " + current.Title);
-            System.out.println("Book Author: " + current.Author);
+            System.out.println("\t\t\t\t--------- Borrowed Book " + num + " -----------");
+            System.out.println("\t\t\t\t\tBook ID: " + current.BookID);
+            System.out.println("\t\t\t\t\tBook Title: " + current.Title);
+            System.out.println("\t\t\t\t\tBook Author: " + current.Author);
             num++;
             current = current.next;
          }

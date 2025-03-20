@@ -8,37 +8,40 @@ public class SinglyLibrary{
       this.tail = null;   
    }
    
+   // Method for checking if the list is empty
    public boolean isEmpty(){
       if(head == null){
-         return true;
+         return true; // return true if the head is empty
       }
       else{
-         return false;
+         return false; // return false if the head has values
       }
    }
    
+   // Method for adding a book to the available list
    public void addBook(int BookID, String Title, String Author){
       SinglyNode newNode = new SinglyNode(BookID, Title, Author);
       if(isEmpty()){
-         head = tail = newNode;
+         head = tail = newNode; // set the newNode as head and tail
       }
       else{
-         newNode.next = head;
-         head = newNode;
+         newNode.next = head; // set the head to newNode's next Node
+         head = newNode; // set newNode as head
       }
       System.out.println("Book Successfully Added!");
-      size++;
+      size++; // Increment size
    }
    
+   // Method for removing a book from available list
    public void removeBook(String searchedTitle){
       if(isEmpty()){
-         System.out.println("Library is Empty!");
+         System.out.println("Library is Empty!"); // Print if the list is empty
          return;
       }
       if(head.Title.equalsIgnoreCase(searchedTitle)){
-         head = head.next;
-         if(head == tail){
-            tail = null;
+         head = head.next; // set the node after the head as head
+         if(head == null){
+            tail = null; // set tail as null if the head is empty 
          }
          size--;
          return;
@@ -59,29 +62,25 @@ public class SinglyLibrary{
    }
    
    public SinglyNode searchBook(String searchedTitle, int option){
-      if(isEmpty()){
-         System.out.println("Library is Empty!");
-         return null;
-      }
-      else{
-         SinglyNode current = head;
-         while(current != null){
-            if(option == 2 && searchedTitle.equalsIgnoreCase(current.Title)){
-               return current;
-            }
-            if(option == 1 && searchedTitle.equalsIgnoreCase(current.Title)){
-               System.out.println("Book Title Found!");
-               System.out.println("--------- Book ---------");
-               System.out.println("Book ID: " + current.BookID);
-               System.out.println("Book Title: " + current.Title);
-               System.out.println("Book Author: " + current.Author);
-               return null;
-            }
-            current = current.next;
+      SinglyNode current = head;
+      while(current != null){
+         if(option == 2 && searchedTitle.equalsIgnoreCase(current.Title)){
+            return current;
          }
-         System.out.println("Book Title Not Found or Available!");
-         return null;
+         if(option == 1 && searchedTitle.equalsIgnoreCase(current.Title)){
+            System.out.println();
+            System.out.println("\t\t\t\t\tBook Title Found!");
+            System.out.println("\t\t\t\t--------- Book ---------");
+            System.out.println("\t\t\t\t\tBook ID: " + current.BookID);
+            System.out.println("\t\t\t\t\tBook Title: " + current.Title);
+            System.out.println("\t\t\t\t\tBook Author: " + current.Author);
+            System.out.println();
+            return null;
+         }
+         current = current.next;
       }
+      System.out.println("Book Title Not Found or Available!");
+      return null;
    }
    
    public void displayBooks(){
@@ -92,10 +91,10 @@ public class SinglyLibrary{
          SinglyNode current = head;
          int num = 1;
          while(current != null){
-            System.out.println("--------- Book " + num + " -----------");
-            System.out.println("Book ID: " + current.BookID);
-            System.out.println("Book Title: " + current.Title);
-            System.out.println("Book Author: " + current.Author);
+            System.out.println("\t\t\t\t--------- Book " + num + " -----------");
+            System.out.println("\t\t\t\t\tBook ID: " + current.BookID);
+            System.out.println("\t\t\t\t\tBook Title: " + current.Title);
+            System.out.println("\t\t\t\t\tBook Author: " + current.Author);
             num++;
             current = current.next;
          }
